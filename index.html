@@ -1,138 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Study Solution Feedback</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Study Solution Feedback</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
 
-    body {
-      background: radial-gradient(circle at top, #2b5876, #4e4376);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      perspective: 1000px;
-      overflow: hidden;
-    }
+  body {
+    background: radial-gradient(circle at top, #2b5876, #4e4376);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    overflow: hidden;
+  }
 
-    h1 {
-      color: #fff;
-      font-size: 2.5em;
-      margin-bottom: 25px;
-      text-shadow: 0 0 10px #ffd700, 0 0 20px #ff6b6b;
-      animation: floatText 3s infinite ease-in-out;
-    }
+  h1 {
+    color: #fff;
+    font-size: 2.5em;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ff6b6b;
+    animation: floatText 3s infinite ease-in-out;
+  }
 
-    @keyframes floatText {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+  @keyframes floatText {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
 
-    .card {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(15px);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      width: 350px;
-      transform-style: preserve-3d;
-      transition: all 0.2s ease;
-    }
+  .card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    transform-style: preserve-3d;
+    transition: all 0.2s ease;
+  }
 
-    label {
-      color: #fff;
-      font-weight: 600;
-      display: block;
-      margin-top: 10px;
-    }
+  label {
+    color: #fff;
+    font-weight: 600;
+    display: block;
+    margin-top: 10px;
+  }
 
-    input, textarea, button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      margin-top: 8px;
-      font-size: 1em;
-    }
+  input, textarea, button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 8px;
+    font-size: 1em;
+  }
 
-    input, textarea {
-      background: rgba(255, 255, 255, 0.9);
-      outline: none;
-    }
+  input, textarea {
+    background: rgba(255, 255, 255, 0.9);
+    outline: none;
+  }
 
-    button {
-      background: linear-gradient(135deg, #ff6b6b, #ffd700);
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: 0.3s;
-    }
+  button {
+    background: linear-gradient(135deg, #ff6b6b, #ffd700);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+  }
 
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #ffd700;
-    }
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ffd700;
+  }
 
-    .error {
-      color: #ff4d4d;
-      font-size: 0.9em;
-      margin-top: 5px;
-    }
+  .error {
+    color: #ff4d4d;
+    font-size: 0.9em;
+    margin-top: 5px;
+  }
 
-    .thankyou {
-      color: #fff;
-      font-size: 1.5em;
-      margin-top: 25px;
-      text-align: center;
-      animation: fadeIn 0.7s ease;
-    }
+  .thankyou {
+    color: #fff;
+    font-size: 1.5em;
+    margin-top: 25px;
+    text-align: center;
+    animation: fadeIn 0.7s ease;
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
 
-    /* Diya Rating */
-    .rating {
-      display: flex;
-      justify-content: center;
-      margin: 15px 0;
-      gap: 8px;
-    }
+  /* 🪔 Diya Rating System */
+  .rating {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+    gap: 8px;
+    flex-direction: row-reverse; /* So hovering affects previous diyas */
+  }
 
-    .rating input {
-      display: none;
-    }
+  .rating input {
+    display: none;
+  }
 
-    .rating label {
-      font-size: 2.2em;
-      cursor: pointer;
-      transition: transform 0.3s, text-shadow 0.3s;
-    }
+  .rating label {
+    font-size: 2em;
+    cursor: pointer;
+    transition: transform 0.3s, text-shadow 0.3s;
+    filter: drop-shadow(0 0 5px #fff0);
+  }
 
-    .rating label:hover,
-    .rating label:hover ~ label {
-      transform: scale(1.2);
-    }
+  .rating label:hover,
+  .rating label:hover ~ label {
+    transform: scale(1.2);
+    text-shadow: 0 0 15px orange, 0 0 30px gold;
+  }
 
-    .rating label.selected {
-      text-shadow: 0 0 20px #ffbf00, 0 0 40px orange;
-    }
+  .rating input:checked ~ label {
+    text-shadow: 0 0 20px #ffbf00, 0 0 40px orange;
+    filter: drop-shadow(0 0 10px gold);
+  }
 
-    /* 3D tilt effect */
-    .container {
-      transform-style: preserve-3d;
-    }
-  </style>
+  /* 3D tilt */
+  .container {
+    transform-style: preserve-3d;
+  }
+</style>
 </head>
 <body>
   <h1>Study Solution</h1>
@@ -154,16 +158,16 @@
       <textarea name="message" rows="3" required></textarea>
 
       <label>Rate Us:</label>
-      <div class="rating" id="rating">
-        <input type="radio" id="diya5" name="rating" value="5">
+      <div class="rating">
+        <input type="radio" id="diya5" name="rating" value="5" />
         <label for="diya5">🪔</label>
-        <input type="radio" id="diya4" name="rating" value="4">
+        <input type="radio" id="diya4" name="rating" value="4" />
         <label for="diya4">🪔</label>
-        <input type="radio" id="diya3" name="rating" value="3">
+        <input type="radio" id="diya3" name="rating" value="3" />
         <label for="diya3">🪔</label>
-        <input type="radio" id="diya2" name="rating" value="2">
+        <input type="radio" id="diya2" name="rating" value="2" />
         <label for="diya2">🪔</label>
-        <input type="radio" id="diya1" name="rating" value="1">
+        <input type="radio" id="diya1" name="rating" value="1" />
         <label for="diya1">🪔</label>
       </div>
 
@@ -176,15 +180,13 @@
   </div>
 
   <script>
-    const container = document.querySelector('.container');
     const card = document.querySelector('.card');
     const form = document.getElementById('feedbackForm');
     const thankYou = document.getElementById('thankYouMessage');
     const emailError = document.getElementById('emailError');
     const phoneError = document.getElementById('phoneError');
-    const diyaLabels = document.querySelectorAll('.rating label');
 
-    // 🌟 3D tilt animation
+    // 🌟 3D tilt
     document.addEventListener('mousemove', (e) => {
       const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
       const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
@@ -195,24 +197,14 @@
       card.style.transform = 'rotateY(0deg) rotateX(0deg)';
     });
 
-    // 🪔 Diya Rating logic
-    diyaLabels.forEach((label, index) => {
-      label.addEventListener('click', () => {
-        diyaLabels.forEach(l => l.classList.remove('selected'));
-        for (let i = 0; i <= index; i++) {
-          diyaLabels[i].classList.add('selected');
-        }
-      });
-    });
-
-    // 📩 Form validation & submission
+    // ✅ Form validation + submission
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const email = form.email.value.trim();
       const phone = form.phone.value.trim();
 
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
       const emailExists = localStorage.getItem(email);
 
       let valid = true;
@@ -234,16 +226,16 @@
 
       if (!valid) return;
 
-      // Store email to prevent re-use
+      // Store email locally to block reuse
       localStorage.setItem(email, 'submitted');
 
-      // ✅ Send form data to Web3Forms
+      // Submit form to Web3Forms
       const formData = new FormData(form);
       formData.append("access_key", "ef8440bf-f649-4c60-b8bc-45d2f745985d");
 
       await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData
+        body: formData,
       });
 
       form.style.display = "none";
