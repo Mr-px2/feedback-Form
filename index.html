@@ -1,218 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Study Solution Feedback</title>
+
   <style>
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
       font-family: "Poppins", sans-serif;
     }
 
     body {
-      background: linear-gradient(135deg, #4b6cb7, #182848);
-      height: 100vh;
+      background: linear-gradient(135deg, #000428, #004e92);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      perspective: 1000px;
+      min-height: 100vh;
+      margin: 0;
       overflow: hidden;
-    }
-
-    h1 {
+      perspective: 1200px;
       color: #fff;
-      font-size: 2.5em;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-      margin-bottom: 20px;
-      transform: rotateY(0deg);
-      animation: floatText 3s infinite ease-in-out;
     }
 
-    @keyframes floatText {
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      width: 90%;
+      max-width: 420px;
+      backdrop-filter: blur(15px);
+      transform-style: preserve-3d;
+      animation: float 5s ease-in-out infinite;
+      transition: transform 0.4s ease;
+    }
+
+    .container:hover {
+      transform: rotateY(8deg) rotateX(8deg);
+      box-shadow: 0 0 35px rgba(255, 255, 255, 0.4);
+    }
+
+    @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
 
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      color: #00ffff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ffff;
+    }
+
     form {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(15px);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      width: 350px;
-      transform: rotateY(0deg);
-      transition: transform 0.6s ease;
-      animation: formFloat 6s infinite ease-in-out;
-    }
-
-    @keyframes formFloat {
-      0%, 100% { transform: rotateY(0deg) translateY(0); }
-      50% { transform: rotateY(5deg) translateY(-10px); }
-    }
-
-    label {
-      color: #fff;
-      font-weight: bold;
-      margin-top: 10px;
-      display: block;
-    }
-
-    input, textarea, button {
-      width: 100%;
-      margin-top: 8px;
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      outline: none;
-      font-size: 1em;
+      display: flex;
+      flex-direction: column;
+      transform: translateZ(30px);
     }
 
     input, textarea {
-      background: rgba(255, 255, 255, 0.8);
+      margin: 10px 0 5px;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    button {
-      background: #4b6cb7;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: all 0.3s ease;
-    }
-
-    button:hover {
-      background: #3551a4;
+    input:focus, textarea:focus {
       transform: scale(1.05);
+      box-shadow: 0 0 10px #00ffff;
+      background: #fff;
     }
 
     .error {
-      color: #ff3b3b;
-      font-size: 0.9em;
-      margin-top: 5px;
+      font-size: 13px;
+      color: #ffb3b3;
+      height: 16px;
+      margin-bottom: 8px;
+      text-shadow: 0 0 3px #000;
     }
 
-    .thankyou {
-      color: #fff;
-      font-size: 1.5em;
+    button {
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      border: none;
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00ffff;
+    }
+
+    .thank-you {
       text-align: center;
-      margin-top: 20px;
-      animation: popIn 0.5s ease;
+      font-size: 20px;
+      color: #00ffff;
+      display: none;
+      animation: fadeIn 1s ease forwards, pop 0.8s ease;
+      text-shadow: 0 0 15px #00ffff;
     }
 
-    @keyframes popIn {
-      from { transform: scale(0); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
 
-    .stars {
+    @keyframes pop {
+      0% { transform: scale(0.8); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* 🪔 Diya Rating */
+    .rating {
       display: flex;
       justify-content: center;
       margin: 10px 0;
+      transform: translateZ(20px);
+      gap: 8px;
     }
 
-    .stars input {
-      display: none;
-    }
-
-    .stars label {
-      font-size: 2em;
-      color: #ddd;
+    .diya {
+      width: 40px;
+      height: 40px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/123/123406.png');
+      background-size: contain;
+      background-repeat: no-repeat;
       cursor: pointer;
-      transition: 0.3s;
+      filter: brightness(0.5);
+      transition: all 0.3s ease;
+      touch-action: manipulation;
     }
 
-    .stars input:checked ~ label,
-    .stars label:hover,
-    .stars label:hover ~ label {
-      color: gold;
+    .diya.active {
+      filter: brightness(1.6) drop-shadow(0 0 15px #ffcc00);
       transform: scale(1.2);
+    }
+
+    label {
+      font-size: 15px;
+      color: #00ffff;
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    /* Background floating bubbles */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(0, 255, 255, 0.3);
+      animation: rise 8s infinite ease-in;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Floating bubbles -->
+  <div class="bubble" style="width: 20px; height: 20px; left: 10%; animation-delay: 0s;"></div>
+  <div class="bubble" style="width: 40px; height: 40px; left: 50%; animation-delay: 2s;"></div>
+  <div class="bubble" style="width: 25px; height: 25px; left: 80%; animation-delay: 4s;"></div>
+  <div class="bubble" style="width: 15px; height: 15px; left: 30%; animation-delay: 1s;"></div>
+  <div class="bubble" style="width: 50px; height: 50px; left: 70%; animation-delay: 3s;"></div>
 
-  <h1>Study Solution</h1>
+  <div class="container">
+    <h1>Study Solution</h1>
 
-  <form id="feedbackForm">
-    <label>Name:</label>
-    <input type="text" name="name" required>
+    <form id="feedbackForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+      <input type="hidden" name="access_key" value="ef8440bf-f649-4c60-b8bc-45d2f745985d">
 
-    <label>Email:</label>
-    <input type="email" name="email" required>
-    <div id="emailError" class="error"></div>
+      <input type="text" name="name" placeholder="Your Name" required>
+      
+      <input type="email" name="email" id="email" placeholder="Your Email" required>
+      <div class="error" id="emailError"></div>
 
-    <label>Phone Number:</label>
-    <input type="text" name="phone" required maxlength="10">
-    <div id="phoneError" class="error"></div>
+      <input type="tel" name="phone" id="phone" placeholder="Your Phone Number" required maxlength="10">
+      <div class="error" id="phoneError"></div>
 
-    <label>Feedback:</label>
-    <textarea name="message" rows="3" required></textarea>
+      <label>Rate Our Service:</label>
+      <div class="rating" id="rating">
+        <div class="diya" data-value="1"></div>
+        <div class="diya" data-value="2"></div>
+        <div class="diya" data-value="3"></div>
+        <div class="diya" data-value="4"></div>
+        <div class="diya" data-value="5"></div>
+      </div>
+      <input type="hidden" name="rating" id="ratingValue">
 
-    <label>Rate Us:</label>
-    <div class="stars">
-      <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
-      <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-      <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-      <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-      <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-    </div>
+      <textarea name="message" rows="4" placeholder="Your Feedback" required></textarea>
+      
+      <button type="submit">Submit Feedback</button>
+    </form>
 
-    <button type="submit">Submit Feedback</button>
-  </form>
-
-  <div class="thankyou" id="thankYouMessage" style="display: none;">Thank you for your feedback 😊</div>
+    <div class="thank-you" id="thankYouMsg">😊 Thank you for your feedback!</div>
+  </div>
 
   <script>
-    const form = document.getElementById('feedbackForm');
-    const thankYou = document.getElementById('thankYouMessage');
-    const emailError = document.getElementById('emailError');
-    const phoneError = document.getElementById('phoneError');
+    const form = document.getElementById("feedbackForm");
+    const thankYouMsg = document.getElementById("thankYouMsg");
+    const emailInput = document.getElementById("email");
+    const phoneInput = document.getElementById("phone");
+    const emailError = document.getElementById("emailError");
+    const phoneError = document.getElementById("phoneError");
+    const diyas = document.querySelectorAll(".diya");
+    const ratingValue = document.getElementById("ratingValue");
 
-    form.addEventListener('submit', async (e) => {
+    // 🪔 Diya Rating System (click/touch supported)
+    diyas.forEach((diya, index) => {
+      const activate = () => {
+        ratingValue.value = index + 1;
+        diyas.forEach((d, i) => {
+          d.classList.toggle("active", i <= index);
+        });
+      };
+      diya.addEventListener("click", activate);
+      diya.addEventListener("touchstart", activate, { passive: true });
+    });
+
+    // Realtime validation
+    phoneInput.addEventListener("input", () => {
+      phoneInput.value = phoneInput.value.replace(/\D/g, ""); // only digits
+      if (phoneInput.value.length !== 10) {
+        phoneError.textContent = "Please enter a 10-digit phone number.";
+      } else {
+        phoneError.textContent = "";
+      }
+    });
+
+    emailInput.addEventListener("input", () => {
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
+      if (!emailInput.value.match(emailPattern)) {
+        emailError.textContent = "Please enter a valid email address.";
+      } else {
+        emailError.textContent = "";
+      }
+    });
+
+    // Form Submit
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const email = form.email.value.trim();
-      const phone = form.phone.value.trim();
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
+      const phonePattern = /^\d{10}$/;
+      let valid = true;
 
-      // Email validation
-      const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
-      const emailExists = localStorage.getItem(email);
-
-      let isValid = true;
-      emailError.textContent = '';
-      phoneError.textContent = '';
-
-      if (!emailPattern.test(email)) {
-        emailError.textContent = 'Please enter a valid email address.';
-        isValid = false;
-      } else if (emailExists) {
-        emailError.textContent = 'Please use a different email address.';
-        isValid = false;
+      if (!emailInput.value.match(emailPattern)) {
+        emailError.textContent = "Please enter a valid email address.";
+        valid = false;
       }
 
-      // Phone validation
-      if (!/^[0-9]{10}$/.test(phone)) {
-        phoneError.textContent = 'Please enter a valid 10-digit phone number.';
-        isValid = false;
+      if (!phoneInput.value.match(phonePattern)) {
+        phoneError.textContent = "Please enter a 10-digit phone number.";
+        valid = false;
       }
 
-      if (!isValid) return;
+      if (ratingValue.value === "") {
+        alert("Please select a rating.");
+        valid = false;
+      }
 
-      // Save email to prevent reuse
-      localStorage.setItem(email, 'submitted');
+      // Check for unique email (using localStorage)
+      const usedEmails = JSON.parse(localStorage.getItem("usedEmails") || "[]");
+      if (usedEmails.includes(emailInput.value.trim())) {
+        emailError.textContent = "Please use a different email address.";
+        valid = false;
+      }
 
-      // Send to Web3Forms
+      if (!valid) return;
+
+      usedEmails.push(emailInput.value.trim());
+      localStorage.setItem("usedEmails", JSON.stringify(usedEmails));
+
+      // Submit via Web3Forms
       const formData = new FormData(form);
-      formData.append("access_key", "ef8440bf-f649-4c60-b8bc-45d2f745985d");
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+      });
 
-      await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
-
-      form.style.display = "none";
-      thankYou.style.display = "block";
+      if (response.ok) {
+        form.reset();
+        diyas.forEach(d => d.classList.remove("active"));
+        form.style.display = "none";
+        thankYouMsg.style.display = "block";
+      } else {
+        alert("Something went wrong. Please try again!");
+      }
     });
   </script>
 </body>
